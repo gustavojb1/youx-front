@@ -65,14 +65,6 @@ const HorizontalMenu = () => {
           Pacientes
         </Button>,
         <Button
-          key="agenda-medica"
-          variant="ghost"
-          colorScheme="teal"
-          onClick={() => handleNavigation("/agenda-medica")}
-        >
-          Agenda Médica
-        </Button>,
-        <Button
           key="historico-paciente"
           variant="ghost"
           colorScheme="teal"
@@ -137,14 +129,6 @@ const HorizontalMenu = () => {
           onClick={() => handleNavigation("/gerenciar-usuarios")}
         >
           Gerenciar Usuários
-        </Button>,
-        <Button
-          key="relatorios"
-          variant="ghost"
-          colorScheme="teal"
-          onClick={() => handleNavigation("/relatorios")}
-        >
-          Relatórios
         </Button>,
         <Button
           key="historico-paciente-admin"
