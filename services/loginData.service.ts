@@ -13,26 +13,17 @@ export interface LoginData {
   
   
   export const setLoginData = (loginData: LoginData): void => {
-    if (typeof window !== "undefined") {
-      localStorage.setItem(LOGIN_DATA_KEY, JSON.stringify(loginData));
-    }
+    localStorage.setItem(LOGIN_DATA_KEY, JSON.stringify(loginData));
   };
   
   
   export const getLoginData = (): LoginData | null => {
-    if (typeof window !== "undefined") {
-      const storedData = localStorage.getItem(LOGIN_DATA_KEY);
-      return storedData ? JSON.parse(storedData) : null;
-    }else {
-      return null;
-    }
-    
+    const storedData = localStorage.getItem(LOGIN_DATA_KEY);
+    return storedData ? JSON.parse(storedData) : null;
   };
   
   
   export const clearLoginData = (): void => {
-    if (typeof window !== "undefined") {
-      localStorage.removeItem(LOGIN_DATA_KEY);
-    }    
+    localStorage.removeItem(LOGIN_DATA_KEY);
   };
   

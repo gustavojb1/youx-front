@@ -30,10 +30,8 @@ import {
 import apiService from "../../../services/api.service";
 import TableComponent from "../../../components/Table";
 import { useAuth } from "../../../context/Auth/Auth.Context";
-import { USER_ROLES } from "../../../utils/roles";
+import { USER_ROLES } from "../../../utils/roles"; 
 import ConsultationFormModal from "../../../components/ConsultationFormModal";
-import { useRouter } from "next/navigation";
-import dynamic from "next/dynamic";
 
 interface Consulta {
   id: string;
@@ -57,14 +55,13 @@ interface ConsultationData {
   nurseId: string;
 }
 
-const MinhasConsultas: React.FC = () => {
+const MinhasConsultas = () => {
   const [consultas, setConsultas] = useState<Consulta[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [selectedConsulta, setSelectedConsulta] = useState<Consulta | null>(
     null
   );
   const [selectedStatus, setSelectedStatus] = useState<string>("");
-  const router = useRouter();
   const {
     isOpen: isAlertOpen,
     onOpen: onAlertOpen,
@@ -143,6 +140,7 @@ const MinhasConsultas: React.FC = () => {
   const handleSaveConsulta = async (data: ConsultationData) => {
     try {
       if (selectedConsulta) {
+        
         await apiService.put(`/consultation/${selectedConsulta.id}`, data);
         toast({
           title: "Consulta atualizada.",
@@ -152,6 +150,7 @@ const MinhasConsultas: React.FC = () => {
           isClosable: true,
         });
       } else {
+        
         await apiService.post("/consultation", { ...data, doctorId: user?.id });
         toast({
           title: "Consulta criada.",
@@ -251,11 +250,7 @@ const MinhasConsultas: React.FC = () => {
           <Box mb={4}>
             <Button
               colorScheme="teal"
-              onClick={() => {
-                if (typeof window !== "undefined") {
-                  router.push("/login");
-                }
-              }}
+              onClick={() => (window.location.href = "/login")}
             >
               Faça login para acessar esta página
             </Button>
@@ -295,6 +290,7 @@ const MinhasConsultas: React.FC = () => {
           columns={columns}
           data={consultas}
           actions={(row) => {
+            
             const consultaRow: Consulta = {
               id: row.id,
               patientId: row.patientId,
@@ -404,4 +400,4 @@ const MinhasConsultas: React.FC = () => {
   );
 };
 
-export default dynamic(() => Promise.resolve(MinhasConsultas), { ssr: false });
+export default MinhasConsultas;
