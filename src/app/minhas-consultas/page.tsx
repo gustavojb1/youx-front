@@ -30,8 +30,10 @@ import {
 import apiService from "../../../services/api.service";
 import TableComponent from "../../../components/Table";
 import { useAuth } from "../../../context/Auth/Auth.Context";
-import { USER_ROLES } from "../../../utils/roles"; 
+import { USER_ROLES } from "../../../utils/roles";
 import ConsultationFormModal from "../../../components/ConsultationFormModal";
+import { useRouter } from "next/navigation";
+import dynamic from "next/dynamic";
 
 interface Consulta {
   id: string;
@@ -55,13 +57,14 @@ interface ConsultationData {
   nurseId: string;
 }
 
-const MinhasConsultas = () => {
+const MinhasConsultas: React.FC = () => {
   const [consultas, setConsultas] = useState<Consulta[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [selectedConsulta, setSelectedConsulta] = useState<Consulta | null>(
     null
   );
   const [selectedStatus, setSelectedStatus] = useState<string>("");
+  const router = useRouter();
   const {
     isOpen: isAlertOpen,
     onOpen: onAlertOpen,
@@ -140,7 +143,6 @@ const MinhasConsultas = () => {
   const handleSaveConsulta = async (data: ConsultationData) => {
     try {
       if (selectedConsulta) {
-        
         await apiService.put(`/consultation/${selectedConsulta.id}`, data);
         toast({
           title: "Consulta atualizada.",
@@ -150,7 +152,6 @@ const MinhasConsultas = () => {
           isClosable: true,
         });
       } else {
-        
         await apiService.post("/consultation", { ...data, doctorId: user?.id });
         toast({
           title: "Consulta criada.",
@@ -250,7 +251,11 @@ const MinhasConsultas = () => {
           <Box mb={4}>
             <Button
               colorScheme="teal"
-              onClick={() => (window.location.href = "/login")}
+              onClick={() => {
+                if (typeof window !== "undefined") {
+                  router.push("/login");
+                }
+              }}
             >
               Faça login para acessar esta página
             </Button>
@@ -290,7 +295,6 @@ const MinhasConsultas = () => {
           columns={columns}
           data={consultas}
           actions={(row) => {
-            
             const consultaRow: Consulta = {
               id: row.id,
               patientId: row.patientId,
@@ -400,4 +404,4 @@ const MinhasConsultas = () => {
   );
 };
 
-export default MinhasConsultas;
+export default dynamic(() => Promise.resolve(MinhasConsultas), { ssr: false });

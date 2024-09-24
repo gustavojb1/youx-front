@@ -23,6 +23,7 @@ import UserFormModal from "../../../components/UserFormModal";
 import { User } from "@/types/User";
 import { getRoleName, USER_ROLES } from "../../../utils/roles";
 import { formatDateTime } from "../../../utils/formatDate";
+import { useRouter } from "next/navigation";
 
 const GerenciarUsuarios = () => {
   const [users, setUsers] = useState<User[]>([]);
@@ -37,6 +38,8 @@ const GerenciarUsuarios = () => {
     onClose: onFormClose,
   } = useDisclosure();
   const { user, isAuthenticated } = useAuth();
+  const router = useRouter();
+
 
   
   const fetchUsers = async () => {
@@ -204,7 +207,7 @@ const GerenciarUsuarios = () => {
           <Box mb={4}>
             <Button
               colorScheme="teal"
-              onClick={() => (window.location.href = "/login")}
+              onClick={() => router.push("/login")}
             >
               Faça login para acessar esta página
             </Button>
