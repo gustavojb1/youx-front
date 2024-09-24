@@ -13,8 +13,8 @@ crie um arquivo .env na raiz do projeto, e coloque a seguinte configuração:(ap
 NEXT_PUBLIC_API_URL=http://localhost:3005
 
 UTILIZE O LOGIN:
-admin@example.com
-teste
+email: admin@example.com
+senha: teste
 
 LINK DO BACK:
 https://github.com/gustavojb1/youx-back
