@@ -10,11 +10,11 @@ rode o comando npm run dev para iniciar a aplicação do frontend, porém precis
 
 crie um arquivo .env na raiz do projeto, e coloque a seguinte configuração:(aponte para a porta que está rodando sua api localmente)
 
-NEXT_PUBLIC_API_URL=http://localhost:3001
+NEXT_PUBLIC_API_URL=http://localhost:3005
 
 UTILIZE O LOGIN:
 admin@example.com
-senha123
+teste
 
 LINK DO BACK:
 https://github.com/gustavojb1/youx-back
